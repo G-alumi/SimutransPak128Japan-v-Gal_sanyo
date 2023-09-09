@@ -1,0 +1,777 @@
+# Shift-JIS encoding
+# Use YAMLtrans
+# https://github.com/G-alumi/YAMLtrans
+
+#共通項目
+# 2.4km/h/s(boosted)
+DEFAULT: &default
+  obj: vehicle
+  copyright: G_alumi
+  waytype: track
+  engine_type: electric
+  freight: Passagiere
+  speed: 110
+  length: 11
+
+#連結設定用
+ALL_MC3000_STEEL: &all_mc3000_steel
+  - Gal_sanyo_Mc3000_steel_normal_separated
+  - Gal_sanyo_Mc3000_steel_normal_single
+  - Gal_sanyo_Mc3050_steel_normal
+  - Gal_sanyo_Mc3050_newAL_steelColor
+  - Gal_sanyo_Mc3000_steel_normal_separated_RN
+  - Gal_sanyo_Mc3000_steel_normal_single_RN
+  - Gal_sanyo_Mc3050_steel_normal_RN
+
+ALL_TC3600_STEEL: &all_tc3600_steel
+  - Gal_sanyo_Tc3600_steel_normal_separated
+  - Gal_sanyo_Tc3600_steel_normal_single
+  - Gal_sanyo_Tc3630_steel_normal
+  - Gal_sanyo_Tc3600_steel_normal_separated_RN
+  - Gal_sanyo_Tc3600_steel_normal_single_RN
+  - Gal_sanyo_Tc3630_steel_normal_RN
+
+ALL_MC3000_AL: &all_mc3000_al
+  - Gal_sanyo_Mc3050_newAL_normal
+  - Gal_sanyo_Mc3050_newAL6th_normal
+  - Gal_sanyo_Mc3050_newAL_normal_RN
+
+ALL_TC3600_AL: &all_tc3600_al
+  - Gal_sanyo_Tc3630_newAL_normal
+  - Gal_sanyo_Tc3630_newAL6th_normal
+  - Gal_sanyo_Tc3630_newAL_normal_RN
+  - Gal_sanyo_Tc3600_steel_ALColor_separated
+
+#登場年月まとめ
+INTOR_AL: &intro_al
+  intro_year: 1964
+  intro_month: 12
+
+INTOR_STEEL: &intro_steel
+  intro_year: 1967
+  intro_month: 4
+
+INTOR_STEEL_RN: &intro_steel_rn
+  intro_year: 2005
+  intro_month: 3
+
+INTOR_NEW_AL_PROT: &intro_new_al_prot
+  intro_year: 1981
+  intro_month: 3
+
+INTOR_NEW_AL: &intro_new_al
+  intro_year: 1981
+  intro_month: 6
+
+INTOR_NEW_AL: &intro_new_al_6th
+  intro_year: 1985
+  intro_month: 6
+
+INTOR_NEW_AL_RN: &intro_new_al_rn
+  intro_year: 2023
+  intro_month: 8
+
+#M車出力設定
+MOTOR_AL: &motor_al
+  gear: 184
+  power: 500
+  
+MOTOR_STEEL: &motor_steel
+  gear: 207
+  power: 500
+
+#各型式テンプレート(アルミ)
+MC3000_AL: &mc3000_al
+  <<: *default
+  weight: 34.4
+  RunningCost: 248
+  cost: 22400000
+  payload: 120
+  <<: *motor_al
+
+M3000_AL: &m3000_al
+  <<: *default
+  weight: 33.3
+  RunningCost: 251
+  cost: 23300000
+  payload: 130
+  <<: *motor_al
+
+T3500_AL: &t3500_al
+  <<: *default
+  weight: 24.2
+  RunningCost: 46
+  cost: 10900000
+  payload: 130
+
+TC3600_STEEL: &tc3600_al
+  <<: *default
+  weight: 26.7
+  RunningCost: 43
+  cost: 10100000
+  payload: 120
+
+#各型式テンプレート(鋼製)
+MC3000_STEEL: &mc3000_steel
+  <<: *default
+  weight: 38.9
+  RunningCost: 273
+  cost: 24000000
+  payload: 120
+  <<: *motor_steel
+
+M3000_STEEL: &m3000_steel
+  <<: *default
+  weight: 37.8
+  RunningCost: 277
+  cost: 24800000
+  payload: 130
+  <<: *motor_steel
+
+T3500_STEEL: &t3500_steel
+  <<: *default
+  weight: 28.7
+  RunningCost: 46
+  cost: 10900000
+  payload: 130
+
+TC3600_STEEL: &tc3600_steel
+  <<: *default
+  weight: 31.2
+  RunningCost: 43
+  cost: 10100000
+  payload: 120
+
+#YAMLtrans用パラメータ
+params:
+  datpath: Gal_sanyo3000.dat
+  pakpath: ../Gal_sanyo3000.pak
+  pakset: pak128
+  autopak: true
+  imagepreview: false
+
+#画像一覧
+images: null
+
+#アドオン本体
+addons:
+
+  # 3000-初期アルミ-通常(AL_normal)
+  - name: Gal_sanyo_Mc3000_AL_normal
+    <<: *mc3000_al
+    <<: *intro_al
+    EmptyImage:
+      "S, E, SE, SW, N, W, NW, NE": sanyo3000_AL_normal.0.<$0>
+    Constraint:
+      next:
+        - Gal_sanyo_M3000_AL_normal
+
+  - name: Gal_sanyo_M3000_AL_normal
+    <<: *m3000_al
+    <<: *intro_al
+    EmptyImage:
+      "S, E, SE, SW, N, W, NW, NE": sanyo3000_AL_normal.2.<$0>
+    Constraint:
+      prev:
+        - Gal_sanyo_Mc3000_AL_normal
+      next:
+        - Gal_sanyo_T3500_AL_normal
+        - Gal_sanyo_Tc3600_AL_normal
+
+  - name: Gal_sanyo_T3500_AL_normal
+    <<: *t3500_al
+    <<: *intro_al
+    EmptyImage:
+      "S, E, SE, SW, N, W, NW, NE": sanyo3000_AL_normal.4.<$0>
+    Constraint:
+      prev:
+        - Gal_sanyo_M3000_AL_normal
+      next:
+        - Gal_sanyo_Tc3600_AL_normal
+
+  - name: Gal_sanyo_Tc3600_AL_normal
+    <<: *tc3600_al
+    <<: *intro_al
+    EmptyImage:
+      "S, E, SE, SW, N, W, NW, NE": sanyo3000_AL_normal.1.<$0>
+    Constraint:
+      prev:
+        - Gal_sanyo_M3000_AL_normal
+        - Gal_sanyo_T3500_AL_normal
+
+  # 3000-初期アルミ-細帯(AL_thin)
+  - name: Gal_sanyo_Mc3000_AL_thin
+    <<: *mc3000_al
+    <<: *intro_al
+    EmptyImage:
+      "S, E, SE, SW, N, W, NW, NE": sanyo3000_AL_thin.0.<$0>
+    Constraint:
+      next:
+        - Gal_sanyo_M3000_AL_thin
+
+  - name: Gal_sanyo_M3000_AL_thin
+    <<: *m3000_al
+    <<: *intro_al
+    EmptyImage:
+      "S, E, SE, SW, N, W, NW, NE": sanyo3000_AL_thin.2.<$0>
+    Constraint:
+      prev:
+        - Gal_sanyo_Mc3000_AL_thin
+      next:
+        - Gal_sanyo_T3500_AL_thin
+        - Gal_sanyo_Tc3600_AL_thin
+
+  - name: Gal_sanyo_T3500_AL_thin
+    <<: *t3500_al
+    <<: *intro_al
+    EmptyImage:
+      "S, E, SE, SW, N, W, NW, NE": sanyo3000_AL_thin.4.<$0>
+    Constraint:
+      prev:
+        - Gal_sanyo_M3000_AL_thin
+      next:
+        - Gal_sanyo_Tc3600_AL_thin
+
+  - name: Gal_sanyo_Tc3600_AL_thin
+    <<: *tc3600_al
+    <<: *intro_al
+    EmptyImage:
+      "S, E, SE, SW, N, W, NW, NE": sanyo3000_AL_thin.1.<$0>
+    Constraint:
+      prev:
+        - Gal_sanyo_M3000_AL_thin
+        - Gal_sanyo_T3500_AL_thin
+
+  # 3000-初期アルミ-新アルミ塗装(AL_newColor)
+  - name: Gal_sanyo_T3500_AL_newColor
+    <<: *t3500_al
+    <<: *intro_al
+    EmptyImage:
+      "S, E, SE, SW, N, W, NW, NE": sanyo3000_AL_newColor.4.<$0>
+    Constraint:
+      prev:
+        - Gal_sanyo_M3050_newAL_normal
+        - Gal_sanyo_M3050_newAL6th_normal
+      next:
+        - Gal_sanyo_Tc3630_newAL_normal
+        - Gal_sanyo_Tc3630_newAL6th_normal
+
+
+  # 3000-鋼製-通常塗装-分散冷改(steel_normal_separated)
+  - name: Gal_sanyo_Mc3000_steel_normal_separated
+    <<: *mc3000_steel
+    <<: *intro_steel
+    EmptyImage:
+      "S, E, SE, SW, N, W, NW, NE": sanyo3000_steel_normal_separated.0.<$0>
+    Constraint:
+      next:
+        - Gal_sanyo_M3000_steel_normal_separated
+
+  - name: Gal_sanyo_M3000_steel_normal_separated
+    <<: *m3000_steel
+    <<: *intro_steel
+    EmptyImage:
+      "S, E, SE, SW, N, W, NW, NE": sanyo3000_steel_normal_separated.2.<$0>
+    Constraint:
+      prev:
+        - Gal_sanyo_Mc3000_steel_normal_separated
+      next:
+        LIST:
+        - Gal_sanyo_T3500_steel_normal_separated
+        - Gal_sanyo_Tc3600_steel_normal_separated
+        - *all_mc3000_steel
+
+  - name: Gal_sanyo_T3500_steel_normal_separated
+    <<: *t3500_steel
+    <<: *intro_steel
+    EmptyImage:
+      "S, E, SE, SW, N, W, NW, NE": sanyo3000_steel_normal_separated.4.<$0>
+    Constraint:
+      prev:
+        - Gal_sanyo_M3000_steel_normal_separated
+      next:
+        - Gal_sanyo_Tc3600_steel_normal_separated
+
+  - name: Gal_sanyo_Tc3600_steel_normal_separated
+    <<: *tc3600_steel
+    <<: *intro_steel
+    EmptyImage:
+      "S, E, SE, SW, N, W, NW, NE": sanyo3000_steel_normal_separated.1.<$0>
+    Constraint:
+      prev:
+        LIST:
+        - Gal_sanyo_M3000_steel_normal_separated
+        - Gal_sanyo_T3500_steel_normal_separated
+        - *all_tc3600_steel
+
+  # 3000-鋼製-通常塗装-集中冷改(steel_normal_single)
+  - name: Gal_sanyo_Mc3000_steel_normal_single
+    <<: *mc3000_steel
+    <<: *intro_steel
+    EmptyImage:
+      "S, E, SE, SW, N, W, NW, NE": sanyo3000_steel_normal_single.0.<$0>
+    Constraint:
+      next:
+        - Gal_sanyo_M3000_steel_normal_single
+
+  - name: Gal_sanyo_M3000_steel_normal_single
+    <<: *m3000_steel
+    <<: *intro_steel
+    EmptyImage:
+      "S, E, SE, SW, N, W, NW, NE": sanyo3000_steel_normal_single.2.<$0>
+    Constraint:
+      prev:
+        - Gal_sanyo_Mc3000_steel_normal_single
+      next:
+        LIST:
+        - Gal_sanyo_T3500_steel_normal_single
+        - Gal_sanyo_Tc3600_steel_normal_single
+        - *all_mc3000_steel
+
+  - name: Gal_sanyo_T3500_steel_normal_single
+    <<: *t3500_steel
+    <<: *intro_steel
+    EmptyImage:
+      "S, E, SE, SW, N, W, NW, NE": sanyo3000_steel_normal_single.4.<$0>
+    Constraint:
+      prev:
+        - Gal_sanyo_M3000_steel_normal_single
+      next:
+        - Gal_sanyo_Tc3600_steel_normal_single
+
+  - name: Gal_sanyo_Tc3600_steel_normal_single
+    <<: *tc3600_steel
+    <<: *intro_steel
+    EmptyImage:
+      "S, E, SE, SW, N, W, NW, NE": sanyo3000_steel_normal_single.1.<$0>
+    Constraint:
+      prev:
+        LIST:
+        - Gal_sanyo_M3000_steel_normal_single
+        - Gal_sanyo_T3500_steel_normal_single
+        - *all_tc3600_steel
+
+  # 3000-鋼製-アルミ塗装-分散冷改(steel_ALColor_separated)(ex.3619号車)
+  - name: Gal_sanyo_Tc3600_steel_ALColor_separated
+    <<: *tc3600_steel
+    <<: *intro_steel
+    EmptyImage:
+      "S, E, SE, SW, N, W, NW, NE": sanyo3000_steel_ALColor_separated.1.<$0>
+    Constraint:
+      prev:
+        LIST:
+        - Gal_sanyo_M3050_newAL_normal
+        - Gal_sanyo_M3050_newAL6th_normal
+        - Gal_sanyo_T3530_newAL_normal
+        - Gal_sanyo_T3530_newAL6th_normal
+        - *all_tc3600_al
+        
+  # 3000-鋼製-通常塗装-分散冷改-リニューアル(steel_normal_separated_RN)
+  - name: Gal_sanyo_Mc3000_steel_normal_separated_RN
+    <<: *mc3000_steel
+    <<: *intro_steel_rn
+    EmptyImage:
+      "S, E, SE, SW, N, W, NW, NE": sanyo3000_steel_normal_separated_RN.0.<$0>
+    Constraint:
+      next:
+        - Gal_sanyo_M3000_steel_normal_separated_RN
+        - Gal_sanyo_M3000_steel_normal_separated_RN_cross
+
+  - name: Gal_sanyo_M3000_steel_normal_separated_RN
+    <<: *m3000_steel
+    <<: *intro_steel_rn
+    EmptyImage:
+      "S, E, SE, SW, N, W, NW, NE": sanyo3000_steel_normal_separated_RN.2.<$0>
+    Constraint:
+      prev:
+        - Gal_sanyo_Mc3000_steel_normal_separated_RN
+      next:
+        LIST:
+        - Gal_sanyo_T3500_steel_normal_separated_RN
+        - Gal_sanyo_Tc3600_steel_normal_separated_RN
+        - *all_mc3000_steel
+
+
+  - name: Gal_sanyo_M3000_steel_normal_separated_RN_cross
+    <<: *m3000_steel
+    <<: *intro_steel_rn
+    EmptyImage:
+      "S, E, SE, SW, N, W, NW, NE": sanyo3000_steel_normal_separated_RN.3.<$0>
+    Constraint:
+      prev:
+        - Gal_sanyo_Mc3000_steel_normal_separated_RN
+      next:
+        LIST:
+        - Gal_sanyo_T3500_steel_normal_separated_RN
+        - Gal_sanyo_Tc3600_steel_normal_separated_RN
+        - *all_mc3000_steel
+
+  - name: Gal_sanyo_T3500_steel_normal_separated_RN
+    <<: *t3500_steel
+    <<: *intro_steel_rn
+    EmptyImage:
+      "S, E, SE, SW, N, W, NW, NE": sanyo3000_steel_normal_separated_RN.4.<$0>
+    Constraint:
+      prev:
+        - Gal_sanyo_M3000_steel_normal_separated_RN
+        - Gal_sanyo_M3000_steel_normal_separated_RN_cross
+      next:
+        - Gal_sanyo_Tc3600_steel_normal_separated_RN
+
+  - name: Gal_sanyo_Tc3600_steel_normal_separated_RN
+    <<: *tc3600_steel
+    <<: *intro_steel_rn
+    EmptyImage:
+      "S, E, SE, SW, N, W, NW, NE": sanyo3000_steel_normal_separated_RN.1.<$0>
+    Constraint:
+      prev:
+        LIST:
+        - Gal_sanyo_M3000_steel_normal_separated_RN
+        - Gal_sanyo_M3000_steel_normal_separated_RN_cross
+        - Gal_sanyo_T3500_steel_normal_separated_RN
+        - *all_tc3600_steel
+
+  # 3000-鋼製-通常塗装-集中冷改-リニューアル(steel_normal_single_RN)
+  - name: Gal_sanyo_Mc3000_steel_normal_single_RN
+    <<: *mc3000_steel
+    <<: *intro_steel_rn
+    EmptyImage:
+      "S, E, SE, SW, N, W, NW, NE": sanyo3000_steel_normal_single_RN.0.<$0>
+    Constraint:
+      next:
+        - Gal_sanyo_M3000_steel_normal_single_RN
+        - Gal_sanyo_M3000_steel_normal_single_RN_cross
+
+  - name: Gal_sanyo_M3000_steel_normal_single_RN
+    <<: *m3000_steel
+    <<: *intro_steel_rn
+    EmptyImage:
+      "S, E, SE, SW, N, W, NW, NE": sanyo3000_steel_normal_single_RN.2.<$0>
+    Constraint:
+      prev:
+        - Gal_sanyo_Mc3000_steel_normal_single_RN
+      next:
+        LIST:
+        - Gal_sanyo_T3500_steel_normal_single_RN
+        - Gal_sanyo_Tc3600_steel_normal_single_RN
+        - *all_mc3000_steel
+
+  - name: Gal_sanyo_M3000_steel_normal_single_RN_cross
+    <<: *m3000_steel
+    <<: *intro_steel_rn
+    EmptyImage:
+      "S, E, SE, SW, N, W, NW, NE": sanyo3000_steel_normal_single_RN.3.<$0>
+    Constraint:
+      prev:
+        - Gal_sanyo_Mc3000_steel_normal_single_RN
+      next:
+        LIST:
+        - Gal_sanyo_T3500_steel_normal_single_RN
+        - Gal_sanyo_Tc3600_steel_normal_single_RN
+        - *all_mc3000_steel
+
+  - name: Gal_sanyo_T3500_steel_normal_single_RN
+    <<: *t3500_steel
+    <<: *intro_steel_rn
+    EmptyImage:
+      "S, E, SE, SW, N, W, NW, NE": sanyo3000_steel_normal_single_RN.4.<$0>
+    Constraint:
+      prev:
+        - Gal_sanyo_M3000_steel_normal_single_RN
+        - Gal_sanyo_M3000_steel_normal_single_RN_cross
+      next:
+        - Gal_sanyo_Tc3600_steel_normal_single_RN
+
+  - name: Gal_sanyo_Tc3600_steel_normal_single_RN
+    <<: *tc3600_steel
+    <<: *intro_steel_rn
+    EmptyImage:
+      "S, E, SE, SW, N, W, NW, NE": sanyo3000_steel_normal_single_RN.1.<$0>
+    Constraint:
+      prev:
+        LIST:
+        - Gal_sanyo_M3000_steel_normal_single_RN
+        - Gal_sanyo_M3000_steel_normal_single_RN_cross
+        - Gal_sanyo_T3500_steel_normal_single_RN
+        - *all_tc3600_steel
+
+  # 3050-鋼製-通常塗装(steel_normal)
+  - name: Gal_sanyo_Mc3050_steel_normal
+    <<: *mc3000_steel
+    <<: *intro_steel
+    EmptyImage:
+      "S, E, SE, SW, N, W, NW, NE": sanyo3050_steel_normal.0.<$0>
+    Constraint:
+      next:
+        - Gal_sanyo_M3050_steel_normal
+
+  - name: Gal_sanyo_M3050_steel_normal
+    <<: *m3000_steel
+    <<: *intro_steel
+    EmptyImage:
+      "S, E, SE, SW, N, W, NW, NE": sanyo3050_steel_normal.3.<$0>
+    Constraint:
+      prev:
+        - Gal_sanyo_Mc3050_steel_normal
+      next:
+        LIST:
+        - Gal_sanyo_T3530_steel_normal
+        - Gal_sanyo_Tc3630_steel_normal
+        - *all_mc3000_steel
+
+  - name: Gal_sanyo_T3530_steel_normal
+    <<: *t3500_steel
+    <<: *intro_steel
+    EmptyImage:
+      "S, E, SE, SW, N, W, NW, NE": sanyo3050_steel_normal.4.<$0>
+    Constraint:
+      prev:
+        - Gal_sanyo_M3050_steel_normal
+      next:
+        - Gal_sanyo_Tc3630_steel_normal
+
+  - name: Gal_sanyo_Tc3630_steel_normal
+    <<: *tc3600_steel
+    <<: *intro_steel
+    EmptyImage:
+      "S, E, SE, SW, N, W, NW, NE": sanyo3050_steel_normal.1.<$0>
+    Constraint:
+      prev:
+        LIST:
+        - Gal_sanyo_M3050_steel_normal
+        - Gal_sanyo_M3050_newAL_steelColor
+        - Gal_sanyo_T3530_steel_normal
+        - Gal_sanyo_T3530_newAL_steelColor
+        - *all_tc3600_steel
+
+  # 3050-鋼製-通常塗装-リニューアル(steel_normal_RN)
+  - name: Gal_sanyo_Mc3050_steel_normal_RN
+    <<: *mc3000_steel
+    <<: *intro_steel_rn
+    EmptyImage:
+      "S, E, SE, SW, N, W, NW, NE": sanyo3050_steel_normal_RN.0.<$0>
+    Constraint:
+      next:
+        - Gal_sanyo_M3050_steel_normal_RN
+
+  - name: Gal_sanyo_M3050_steel_normal_RN
+    <<: *m3000_steel
+    <<: *intro_steel_rn
+    EmptyImage:
+      "S, E, SE, SW, N, W, NW, NE": sanyo3050_steel_normal_RN.3.<$0>
+    Constraint:
+      prev:
+        - Gal_sanyo_Mc3050_steel_normal_RN
+      next:
+        LIST:
+        - Gal_sanyo_T3530_steel_normal_RN
+        - Gal_sanyo_Tc3630_steel_normal_RN
+        - *all_mc3000_steel
+
+  - name: Gal_sanyo_T3530_steel_normal_RN
+    <<: *t3500_steel
+    <<: *intro_steel_rn
+    EmptyImage:
+      "S, E, SE, SW, N, W, NW, NE": sanyo3050_steel_normal_RN.4.<$0>
+    Constraint:
+      prev:
+        - Gal_sanyo_M3050_steel_normal_RN
+      next:
+        - Gal_sanyo_Tc3630_steel_normal_RN
+
+  - name: Gal_sanyo_Tc3630_steel_normal_RN
+    <<: *tc3600_steel
+    <<: *intro_steel_rn
+    EmptyImage:
+      "S, E, SE, SW, N, W, NW, NE": sanyo3050_steel_normal_RN.1.<$0>
+    Constraint:
+      prev:
+        LIST:
+        - Gal_sanyo_M3050_steel_normal_RN
+        - Gal_sanyo_T3530_steel_normal_RN
+        - *all_tc3600_steel
+
+
+  # 3050-新アルミ-鋼製塗装-(newAL_steelColor)(3066-3067,3538)
+  - name: Gal_sanyo_Mc3050_newAL_steelColor
+    <<: *mc3000_al
+    <<: *intro_new_al
+    EmptyImage:
+      "S, E, SE, SW, N, W, NW, NE": sanyo3050_newAL_steelColor.0.<$0>
+    Constraint:
+      next:
+        - Gal_sanyo_M3050_newAL_steelColor
+
+  - name: Gal_sanyo_M3050_newAL_steelColor
+    <<: *m3000_al
+    <<: *intro_new_al
+    EmptyImage:
+      "S, E, SE, SW, N, W, NW, NE": sanyo3050_newAL_steelColor.3.<$0>
+    Constraint:
+      prev:
+        - Gal_sanyo_Mc3050_newAL_steelColor
+      next:
+        LIST:
+        - Gal_sanyo_T3530_newAL_steelColor
+        - Gal_sanyo_Tc3630_steel_normal
+        - *all_mc3000_steel
+
+  - name: Gal_sanyo_T3530_newAL_steelColor
+    <<: *t3500_al
+    <<: *intro_new_al
+    EmptyImage:
+      "S, E, SE, SW, N, W, NW, NE": sanyo3050_newAL_steelColor.4.<$0>
+    Constraint:
+      prev:
+        - Gal_sanyo_M3050_newAL_steelColor
+      next:
+        - Gal_sanyo_Tc3630_steel_normal
+
+  # 3050-新アルミ-通常塗装(newAL_normal)
+  - name: Gal_sanyo_Mc3050_newAL_normal
+    <<: *mc3000_al
+    <<: *intro_new_al
+    EmptyImage:
+      "S, E, SE, SW, N, W, NW, NE": sanyo3050_newAL_normal.0.<$0>
+    Constraint:
+      next:
+        - Gal_sanyo_M3050_newAL_normal
+
+  - name: Gal_sanyo_M3050_newAL_normal
+    <<: *m3000_al
+    <<: *intro_new_al
+    EmptyImage:
+      "S, E, SE, SW, N, W, NW, NE": sanyo3050_newAL_normal.3.<$0>
+    Constraint:
+      prev:
+        - Gal_sanyo_Mc3050_newAL_normal
+      next:
+        LIST:
+        - Gal_sanyo_T3530_newAL_normal
+        - Gal_sanyo_T3500_AL_newColor
+        - Gal_sanyo_Tc3630_newAL_normal
+        - Gal_sanyo_Tc3600_steel_ALColor_separated
+        - *all_mc3000_al
+
+  - name: Gal_sanyo_T3530_newAL_normal
+    <<: *t3500_al
+    <<: *intro_new_al
+    EmptyImage:
+      "S, E, SE, SW, N, W, NW, NE": sanyo3050_newAL_normal.4.<$0>
+    Constraint:
+      prev:
+        - Gal_sanyo_M3050_newAL_normal
+      next:
+        - Gal_sanyo_Tc3630_newAL_normal
+        - Gal_sanyo_Tc3600_steel_ALColor_separated
+
+  - name: Gal_sanyo_Tc3630_newAL_normal
+    <<: *tc3600_al
+    <<: *intro_new_al
+    EmptyImage:
+      "S, E, SE, SW, N, W, NW, NE": sanyo3050_newAL_normal.1.<$0>
+    Constraint:
+      prev:
+        LIST:
+        - Gal_sanyo_M3050_newAL_normal
+        - Gal_sanyo_T3530_newAL_normal
+        - Gal_sanyo_T3500_AL_newColor
+        - *all_tc3600_al
+
+  # 3050-新アルミ6次-通常塗装(newAL6th_normal)
+  - name: Gal_sanyo_Mc3050_newAL6th_normal
+    <<: *mc3000_al
+    <<: *intro_new_al_6th
+    EmptyImage:
+      "S, E, SE, SW, N, W, NW, NE": sanyo3050_newAL6th_normal.0.<$0>
+    Constraint:
+      next:
+        - Gal_sanyo_M3050_newAL6th_normal
+
+  - name: Gal_sanyo_M3050_newAL6th_normal
+    <<: *m3000_al
+    <<: *intro_new_al_6th
+    EmptyImage:
+      "S, E, SE, SW, N, W, NW, NE": sanyo3050_newAL6th_normal.3.<$0>
+    Constraint:
+      prev:
+        - Gal_sanyo_Mc3050_newAL6th_normal
+      next:
+        LIST:
+        - Gal_sanyo_T3530_newAL6th_normal
+        - Gal_sanyo_T3500_AL_newColor
+        - Gal_sanyo_Tc3630_newAL6th_normal
+        - Gal_sanyo_Tc3600_steel_ALColor_separated
+        - *all_mc3000_al
+
+  - name: Gal_sanyo_T3530_newAL6th_normal
+    <<: *t3500_al
+    <<: *intro_new_al_6th
+    EmptyImage:
+      "S, E, SE, SW, N, W, NW, NE": sanyo3050_newAL6th_normal.4.<$0>
+    Constraint:
+      prev:
+        - Gal_sanyo_M3050_newAL6th_normal
+      next:
+        - Gal_sanyo_Tc3630_newAL6th_normal
+        - Gal_sanyo_Tc3600_steel_ALColor_separated
+
+  - name: Gal_sanyo_Tc3630_newAL6th_normal
+    <<: *tc3600_al
+    <<: *intro_new_al_6th
+    EmptyImage:
+      "S, E, SE, SW, N, W, NW, NE": sanyo3050_newAL6th_normal.1.<$0>
+    Constraint:
+      prev:
+        LIST:
+        - Gal_sanyo_M3050_newAL6th_normal
+        - Gal_sanyo_T3530_newAL6th_normal
+        - Gal_sanyo_T3500_AL_newColor
+        - *all_tc3600_al
+
+  # 3050-新アルミ-通常塗装-リニューアル(newAL_normal_RN)
+  - name: Gal_sanyo_Mc3050_newAL_normal_RN
+    <<: *mc3000_al
+    <<: *intro_new_al_6th
+    EmptyImage:
+      "S, E, SE, SW, N, W, NW, NE": sanyo3050_newAL_normal_RN.0.<$0>
+    Constraint:
+      next:
+        - Gal_sanyo_M3050_newAL_normal_RN
+
+  - name: Gal_sanyo_M3050_newAL_normal_RN
+    <<: *m3000_al
+    <<: *intro_new_al_6th
+    EmptyImage:
+      "S, E, SE, SW, N, W, NW, NE": sanyo3050_newAL_normal_RN.3.<$0>
+    Constraint:
+      prev:
+        - Gal_sanyo_Mc3050_newAL_normal_RN
+      next:
+        LIST:
+        - Gal_sanyo_T3530_newAL_normal_RN
+        - Gal_sanyo_Tc3630_newAL_normal_RN
+        - *all_mc3000_al
+
+  - name: Gal_sanyo_T3530_newAL_normal_RN
+    <<: *t3500_al
+    <<: *intro_new_al_6th
+    EmptyImage:
+      "S, E, SE, SW, N, W, NW, NE": sanyo3050_newAL_normal_RN.4.<$0>
+    Constraint:
+      prev:
+        - Gal_sanyo_M3050_newAL_normal_RN
+      next:
+        - Gal_sanyo_Tc3630_newAL_normal_RN
+
+  - name: Gal_sanyo_Tc3630_newAL_normal_RN
+    <<: *tc3600_al
+    <<: *intro_new_al_6th
+    EmptyImage:
+      "S, E, SE, SW, N, W, NW, NE": sanyo3050_newAL_normal_RN.1.<$0>
+    Constraint:
+      prev:
+        LIST:
+        - Gal_sanyo_M3050_newAL_normal_RN
+        - Gal_sanyo_T3530_newAL_normal_RN
+        - *all_tc3600_al
