@@ -1,11 +1,13 @@
-# 山陽電車セット
-作者- あるみどり (Twitter:[@G_alumi](https://twitter.com/G_alumi))
+# 山陽電鉄セット
+作者 - あるみどり (Twitter:[@G_alumi](https://twitter.com/G_alumi))
 
 ライセンス - [CC BY-NC-SA](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ja)
+
+サムネ提供 - [@kasiwa1999](https://twitter.com/kasiwa1999) 
 ## セット内容
 - 3000/3050系
 
-そのうち"山陽電車セット"と呼べるような内容にします。
+そのうち"山陽電鉄セット"と呼べるような内容にします。
 ## 3000/3050系
 ![サムネ3000](3000/サムネ3000.png)
 主に山陽3000/3050系の冷房改造以降の車です。鋼製リバイバルはめんどくさかったので作っていません。
